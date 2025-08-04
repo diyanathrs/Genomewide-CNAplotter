@@ -12,17 +12,25 @@ library(locuszoomr)
 ################
 ## New plot ###
 ################
-
 # load data
 files.2.plt <- list.files('co_occur/','.txt')
+# Example input data
+# Sample    Chromosome.Region          Event Length
+# 1 GSM4887307_Cyto160_CytoScanHD_Array_       chr9:0-224,672 High Copy Gain 224673
+# 2 GSM4887307_Cyto160_CytoScanHD_Array_ chr9:224,672-259,187        CN Gain  34516
+# 3 GSM4887307_Cyto160_CytoScanHD_Array_ chr9:259,187-276,160 High Copy Gain  16974
+# 4 GSM4887307_Cyto160_CytoScanHD_Array_ chr9:276,160-279,580        CN Gain   3421
+# 5 GSM4887307_Cyto160_CytoScanHD_Array_ chr9:279,580-289,096 High Copy Gain   9517
+# 6 GSM4887307_Cyto160_CytoScanHD_Array_ chr9:289,096-305,334        CN Gain  16239
 
+# run function
 lapply(files.2.plt[2:8], plot_cooccr.focal2, wh.len=35)
 lapply(files.2.plt[10:26], plot_cooccr.focal2, wh.len=35)
 
-plot_cooccr.focal2(files.2.plt[15], wh.len = 35, var.peak = 30) #use 25-45 - issues with 4
+plot_cooccr.cna(files.2.plt[15], wh.len = 35, var.peak = 30) #use 25-45 - issues with 4
 
-
-plot_cooccr.cna<- function(file, wh.len, var.peak) {
+# Function
+plot_cooccr.cna <- function(file, wh.len, var.peak) {
   dat <- read.delim(paste0('co_occur/',file), header = T)
   # remove smaller loh
   range(dat$Length)
